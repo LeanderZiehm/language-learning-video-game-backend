@@ -11,6 +11,23 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
+// Welcome endpoint
+app.get('/', (req, res) => {
+  res.json({
+    message: "Hello! This is the Groq API of Leander",
+    description: "Use this API to interact with Groq's language models and maintain conversation history",
+    endpoints: {
+      "GET /": "Welcome message and API information",
+      "GET /health": "Health check endpoint",
+      "GET /conversations": "List all conversation IDs",
+      "POST /conversations": "Create a new conversation",
+      "GET /conversations/:id": "Get all messages in a specific conversation",
+      "POST /conversations/:id/messages": "Send a message to a specific conversation",
+      "DELETE /conversations/:id": "Delete a conversation"
+    }
+  });
+});
+
 // Initialize Groq client
 const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
